@@ -111,9 +111,10 @@ h2{
 }
 
 header {
+    display: inline-block;
     height: 20px;
-    width: 60%;
-    margin: 0 auto;
+    text-align: center;
+    width: 100%;
 }
 
 .main_content{
@@ -123,19 +124,27 @@ header {
 }
 
 #title{
-    float: left;
-    display: block;
+	display: inline-block;
+	position: relative;
+    vertical-align: top;
 }
 
 #form{
-    display: block;    
+	display: inline-block;    
+	width:75px;
 }
 
-#contents {
+
+#category {
+    list-style: outside none none;
     margin-top: 20px;
+    padding: 0;
+    position: absolute;
+    text-align: left;
+    top: 3px;
 }
 
-#contents li{
+#category li{
     display:none;
 }
 

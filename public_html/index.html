@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <script type="text/javascript" src="js/vendor/modernizr-2.6.2.min.js"></script>
+        
 		<link href='http://fonts.googleapis.com/css?family=Cutive+Mono' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
     </head>
@@ -24,11 +25,12 @@
 		<div class="main_content">
 			<header>
 				<div id="title">
-					robin x
+					robin 
 				</div>
-				<div id="form">
+				<div class="form">
+					<p>x</p>
 					<form action="#" class="search">
-						<input type="text" placeholder="search" class="filterinput" />
+						 <input type="text" placeholder="." data-autosize-input='{ "space": 20 }' class="filterinput main" />
 					</form>
 					<ol id="category">
 						<li>
@@ -45,7 +47,30 @@
 						</li>
 					</ol>
 				</div>
-				
+				<div class="form sub_cat">
+				<p>x</p>
+					<form action="#" class="search">
+						 <input type="text" placeholder="." data-autosize-input='{ "space": 20 }' class="filterinput sub" />
+					</form>
+					<div id="sub_category">
+						<ol id="music">
+							<li>
+							 <a href="#">techno</a>
+							</li>
+							<li>
+							 <a href="#">hiphop</a>
+							</li>
+						</ol>
+						<ol id="stage">
+							<li>
+							 <a href="#">portfolio</a>
+							</li>
+							<li>
+							 <a href="#">bronnen</a>
+							</li>
+						</ol>
+					</div>	
+				</div>
 			</header>	
 			<div class="content">
 			</div>
@@ -58,6 +83,7 @@
         <script>window.jQuery || document.write('<script type="text/javascript" src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script type="text/javascript" src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+        <script type="text/javascript" src="js/jquery.autosize.input.js"></script>
     </body>
 	
 </html>

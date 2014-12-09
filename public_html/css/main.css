@@ -19,6 +19,13 @@ textarea {
 	font-family: "Cutive Mono", "Courier New", Courier, monospace;
 }
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
 html {
     font-size: 1em;
     line-height: 1.4;
@@ -129,13 +136,31 @@ header {
     vertical-align: top;
 }
 
-#form{
-	display: inline-block;    
-	width:75px;
+.form {
+    display: inline-block;
 }
 
+.form p {
+    margin: 0px;
+    float: left;
+}
 
-#category {
+form {
+    margin: 0px auto;
+    text-align: center;
+    float:left;
+}
+
+.filterinput {
+        width: 20px;
+    min-width: 20px;
+    max-width: 300px;
+    text-align: center;
+    transition: width 0.25s;  
+    -moz-transition: width 0.25s;  
+}
+
+#category, #sub_category {
     list-style: outside none none;
     margin-top: 20px;
     padding: 0;
@@ -144,7 +169,7 @@ header {
     top: 3px;
 }
 
-#category li{
+#category, #sub_category li{
     display:none;
 }
 

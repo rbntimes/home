@@ -124,12 +124,13 @@ $('#start-jr').on('click', function() {
 })(Plugins || (Plugins = {}));
 ;$( document ).ready(function() {
 	$( ".main" ).focus();
-  $('.sub_cat').hide();
+  //$('.sub_cat').hide();
   $('input[type!="button"][type!="submit"], select, textarea')
          .val('')
 });
-
-
+$test12 = $('.menu-item a').html();
+//console.log($('.menu-item > ul .menu-item a').html());
+$('.menu-item').has('ul').addClass().html();
 
 (function ($) {
   jQuery.expr[':'].Contains = function(a,i,m){
@@ -141,18 +142,18 @@ $('#start-jr').on('click', function() {
     $(".main")
       .keyup( function (e) {
         var code = e.keyCode || e.which;
-		var searchtext = $(this).val();
-		if(code == 8 && !searchtext) { //backspace keycode			TODO: check if homepage // has to be fully empty
-            //window.location.href = "index.html" //parent_page
-												
+		    var searchtext = $(this).val();
+		    if(code == 8 && !searchtext) { //backspace keycode			TODO: check if homepage // has to be fully empty
+            //window.location.href = "index.html" //parent_page				
           }
-        //getting search value
+          //getting search value
         
         if(searchtext) {
           //finding If content matches with search keyword
-          $matches = $('#category').find('a:Contains(' + searchtext + ')').parent();
+          $matches = $('ul.top-bar-menu > .menu-item > a:Contains(' + searchtext + ')').first();
+          //$matches.addClass('test');
           //hiding non matching lists
-          $('li', list).not($matches).slideUp();
+          //$('li', list).not($matches).slideUp();
           //showing matching lists
 		      //console.log($matches);
           //$matches.slideDown();
@@ -161,18 +162,20 @@ $('#start-jr').on('click', function() {
           }
           else{
 
-          $pageA = $matches.html();
-          $pageUrl = $($pageA).attr('href'); //url gotoPage
+          $pageA = $matches.parent();
+          $pageUrl = $($pageA).find('a').attr('href'); //url gotoPage
+          console.log($pageUrl);
           $searchIndex = searchtext.length;
-          console.log($searchIndex);
+          //console.log($searchIndex);
 
           if($matches.length == 1 && $searchIndex > "2"){
 	        $searchString_main = $matches[0].textContent.trim();
-          	console.log($searchString_main);
-            $('.breadcrumbs:before').css('content','?');
+          	//console.log($searchString_main);
+            //alert($searchString_main);
           	$('.main').val( $searchString_main );
-            $('.sub_cat').show();
-            $('.sub').focus();
+            $('.main').attr('disable','disable');
+            //$('.sub_cat').show();
+            //$('.sub').focus();
           }
           }
           if(searchtext == "help"){
@@ -189,49 +192,49 @@ $('#start-jr').on('click', function() {
         return false;
       })
 
-    $(".sub")    
+        $(".sub")
       .keyup( function (e) {
         var code = e.keyCode || e.which;
-    var searchtext = $(this).val();
-        if(code == 8 && $(".sub").val() == 0) { 
-            //backspace keycode      TODO: check if homepage // has to be fully empty
-            //window.location.href = "index.html" //parent_page
-            $('.sub').keydown(function() {
-                if(code == 8){
-
-
-              $('.sub_cat').hide();
-              $('.main').focus(); 
-            }
-          })
-        }
-        //getting search value
+        var searchtext = $('.main').val();
+        var searchtext2 = $(this).val();
+        if(code == 8 && !searchtext2) { //backspace keycode      TODO: check if homepage // has to be fully empty
+            //window.location.href = "index.html" //parent_page       
+          }
+          //getting search value
         
-        if(searchtext) {
+        if(searchtext2) {
           //finding If content matches with search keyword
-          $searchId = "#" + $searchString_main.trim();
-          $matches = $($searchId).find('a:Contains(' + searchtext + ')').parent();
+          //$matches = $('ul.top-bar-menu > .menu-item a:Contains(' + searchtext + ')');
+          $matchesSecond = $($matches).parent().find('ul li a:Contains(' + searchtext2 +')');
+          //console.log($matchesSecond);
+          //console.log($($matches).parent().find('ul li a:Contains(' + searchtext2 +')'));
+          //$matchesSecond.addClass('test');
           //hiding non matching lists
-          $('li', $searchId).not($matches).slideUp();
+          //$('li', list).not($matches).slideUp();
           //showing matching lists
-          //console.log($matches);
+          //console.log($matchesSecond);
           //$matches.slideDown();
           if(code == 8) { //backspace keycode
           //console.log('test');
           }
           else{
-          $pageA = $matches.html();
+
+          $pageA = $matchesSecond.html();
           $pageUrl = $($pageA).attr('href'); //url gotoPage
-          $searchIndex = searchtext.length;
-          console.log($searchIndex);
-          if($matches.length == 1 && $searchIndex > "2"){
-          $searchString_sub = $matches[0].textContent.trim();
-            console.log($searchString_sub);
-            $('.sub').val( $searchString_sub );
+          $searchIndex = searchtext2.length;
+          //console.log($searchIndex);
+
+          if($matchesSecond.length == 1 && $searchIndex > "2"){
+          $searchString_main = $matchesSecond[0].textContent.trim();
+          //  console.log($searchString_main);
+            //alert($searchString_main);
+            $('.sub').val( $searchString_main );
+            $('.sub_cat').show();
+            $('.sub').focus();
           }
           }
-          if(searchtext == "help"){
-            $($searchId).find("li").slideDown(200);
+          if(searchtext2 == "help"){
+            $('#category').find("li").slideDown(200);
           }
           if(code == 13){
             gotoPage();   //goto page pas bij enter
@@ -239,7 +242,7 @@ $('#start-jr').on('click', function() {
         }
         else {
           //if search keyword is empty then hide all the lists
-          $($searchId).find("li").slideUp(200);
+          $(list).find("li").slideUp(200);
         }
         return false;
       })

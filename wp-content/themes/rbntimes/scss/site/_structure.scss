@@ -122,6 +122,17 @@ textarea {
 	}
 }
 
+.top-bar-section{
+	display:none;
+}
+
+#title{
+	color:$white;
+	float:left;
+	font-size:$h5-font-size;
+	padding:7px;
+}
+
 
 /**
  * 4.0 Content

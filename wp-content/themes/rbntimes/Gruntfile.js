@@ -35,7 +35,8 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'js/modernizr/modernizr.min.js': ['js/modernizr/modernizr.js']
+          'js/modernizr/modernizr.min.js': ['js/modernizr/modernizr.js'],
+          'js/custom/main.min.js': ['js/custom/main.js'],
         }
       }
     },
@@ -47,9 +48,8 @@ module.exports = function(grunt) {
       dist: {
         src: [
           'js/foundation/js/foundation.min.js',
-          'js/custom/*.js'
+          'js/custom/main.min.js',
         ],
-
         dest: 'js/app.js'
       }
 
@@ -58,7 +58,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: { 
       files: ['js/custom/*.js'],
-      tasks: ['concat']
+      tasks: ['uglify','concat']
       },
       grunt: { files: ['Gruntfile.js'] },
 

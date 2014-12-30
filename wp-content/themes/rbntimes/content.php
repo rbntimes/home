@@ -8,15 +8,24 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header>
-		<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-		<?php FoundationPress_entry_meta(); ?>
-	</header>
-	<div class="entry-content">
-		<?php the_content(__('Continue reading...', 'FoundationPress')); ?>
-	</div>
-	<footer>
-		<?php $tag = get_the_tags(); if (!$tag) { } else { ?><p><?php the_tags(); ?></p><?php } ?>
-	</footer>
-	<hr />
+  <header>
+       <div class="row">
+            <div class="small-3 columns">
+                 <div id="blckblck<?php echo rand(1,4)?>" class="blckblck" >
+                 	
+                 </div>
+                 <?php the_title( '<p>' , '<br />' ); ?>
+                 
+                      <?php the_category( ' > ', 'multiple' ); ?>
+                 </p>
+            </div>
+            <div id="cntntblck" class="entry-content small-9 columns">
+                 <?php the_content(__('Continue reading...', 'FoundationPress')); ?>
+            </div>
+       </div>
+  </header>
+  <footer>
+       <?php $tag = get_the_tags(); if (!$tag) { } else { ?><p><?php the_tags(); ?></p><?php } ?>
+  </footer>
+  <hr />
 </article>

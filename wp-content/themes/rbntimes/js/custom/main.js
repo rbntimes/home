@@ -1,5 +1,8 @@
 $( document ).ready(function() {
-	$( ".main" ).focus();
+
+//console.log(window.location.pathname);
+
+	$( '.1st, .2nd' ).focus();
   //$('.sub_cat').hide();
   $('input[type!="button"][type!="submit"], select, textarea')
          .val('')
@@ -15,7 +18,7 @@ $('.menu-item').has('ul').addClass().html();
 
   //live search function
   function live_search(list) {
-    $(".main")
+    $(".1st")
       .keyup( function (e) {
         var code = e.keyCode || e.which;
 		    var searchtext = $(this).val();
@@ -25,7 +28,7 @@ $('.menu-item').has('ul').addClass().html();
           //getting search value
         
         if(searchtext) {
-          //finding If content matches with search keyword
+          //finding If content matches with search keywordaads asdaasdsdasasdaaasd
           $matches = $('ul.top-bar-menu > .menu-item > a:Contains(' + searchtext + ')').first();
           //$matches.addClass('test');
           //hiding non matching lists
@@ -48,17 +51,16 @@ $('.menu-item').has('ul').addClass().html();
 	        $searchString_main = $matches[0].textContent.trim();
           	//console.log($searchString_main);
             //alert($searchString_main);
-          	$('.main').val( $searchString_main );
-            $('.main').attr('disable','disable');
+          	$('.1st').val( $searchString_main );
             //$('.sub_cat').show();
-            //$('.sub').focus();
+            //$('.sub').focus();aa
           }
           }
           if(searchtext == "help"){
           	$('#category').find("li").slideDown(200);
           }
           if(code == 13){
-            gotoPage();		//goto page pas bij enter
+            //gotoPage();		//goto page pas bij enter
            }
         }
         else {
@@ -68,60 +70,70 @@ $('.menu-item').has('ul').addClass().html();
         return false;
       })
 
-        $(".sub")
-      .keyup( function (e) {
-        var code = e.keyCode || e.which;
-        var searchtext = $('.main').val();
-        var searchtext2 = $(this).val();
-        if(code == 8 && !searchtext2) { //backspace keycode      TODO: check if homepage // has to be fully empty
-            //window.location.href = "index.html" //parent_page       
-          }
-          //getting search value
+    $(".2nd")
+    .keyup( function (e) {
+      var code = e.keyCode || e.which;
+      var searchtext = $('.main').val();
+      var searchtext2 = $('.2nd').val();
+      if(code == 8 && !searchtext2) { //backspace keycode      TODO: check if homepage // has to be fully empty
+          //window.location.href = "index.html" //parent_page       
+        }
+        //getting search value
+      
+      if(searchtext2) {
+        var currentUrl = window.location.href;
+        //var url = currentUrl.toString();
+        var lastSegment = currentUrl.split('/');
+        var lastEl = lastSegment[lastSegment.length-2];
+        //console.log( lastEl );
+        //finding If content matches with search keyword
+        //$matches = $('ul.top-bar-menu > .menu-item a:Contains(' + searchtext + ')');
         
-        if(searchtext2) {
-          //finding If content matches with search keyword
-          //$matches = $('ul.top-bar-menu > .menu-item a:Contains(' + searchtext + ')');
-          $matchesSecond = $($matches).parent().find('ul li a:Contains(' + searchtext2 +')');
-          //console.log($matchesSecond);
-          //console.log($($matches).parent().find('ul li a:Contains(' + searchtext2 +')'));
-          //$matchesSecond.addClass('test');
-          //hiding non matching lists
-          //$('li', list).not($matches).slideUp();
-          //showing matching lists
-          //console.log($matchesSecond);
-          //$matches.slideDown();
-          if(code == 8) { //backspace keycode
-          //console.log('test');
-          }
-          else{
-
-          $pageA = $matchesSecond.html();
-          $pageUrl = $($pageA).attr('href'); //url gotoPage
-          $searchIndex = searchtext2.length;
-          //console.log($searchIndex);
-
-          if($matchesSecond.length == 1 && $searchIndex > "2"){
-          $searchString_main = $matchesSecond[0].textContent.trim();
-          //  console.log($searchString_main);
-            //alert($searchString_main);
-            $('.sub').val( $searchString_main );
-            $('.sub_cat').show();
-            $('.sub').focus();
-          }
-          }
-          if(searchtext2 == "help"){
-            $('#category').find("li").slideDown(200);
-          }
-          if(code == 13){
-            gotoPage();   //goto page pas bij enter
-           }
+        $mainCat = $('ul.top-bar-menu > .menu-item > a:Contains(' + lastEl + ')');
+        $mainCat2 = $( $mainCat.parent( 'li').children('ul').find('.menu-item > a:Contains(' + searchtext2 + ')'));
+        console.log( $mainCat.parent( 'li').children('ul').find('.menu-item > a:Contains(' + searchtext2 + ')'));
+        
+        //$mainCat2 = $('ul.top-bar-menu > .menu-item > a:Contains(' + lastEl + ')').first();
+        //console.log($mainCat2);
+        //console.log($($matches).parent().find('ul li a:Contains(' + searchtext2 +')'));
+        //$mainCat2.addClass('test');
+        //hiding non matching lists
+        //$('li', list).not($matches).slideUp();
+        //showing matching lists
+        //console.log($mainCat2);
+        //$matches.slideDown();
+        if(code == 8) { //backspace keycode
+        //console.log('test');
         }
-        else {
-          //if search keyword is empty then hide all the lists
-          $(list).find("li").slideUp(200);
+        else{
+
+        
+        $pageUrl = $($mainCat2).attr('href'); //url gotoPage
+        $searchIndex2 = searchtext2.length;
+        //console.log($searchIndex2);
+        console.log($pageUrl);
+        if($mainCat2.length == 1 && $searchIndex2 > "2"){
+        $searchString_sub = $mainCat2[0].textContent.trim();
+        //  console.log($searchString_main);
+          
+          $('.2nd').val( $searchString_sub );
+          //$('.sub_cat').show();
+          //$('.sub').focus();
         }
-        return false;
-      })
+        }
+        if(searchtext2 == "help"){
+          $('#category').find("li").slideDown(200);
+        }
+        if(code == 13){
+          gotoPage();   //goto page pas bij enter
+         }
+      }
+      else {
+        //if search keyword is empty then hide all the lists
+        $(list).find("li").slideUp(200);
+      }
+      return false;
+    })
 
     .keyup( function () {
         $(this).change();

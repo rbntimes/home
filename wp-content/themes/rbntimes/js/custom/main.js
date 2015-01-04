@@ -1,9 +1,6 @@
 $( document ).ready(function() {
-
-//console.log(window.location.pathname);
-
-	$( '.1st, .2nd' ).focus();
-  //$('.sub_cat').hide();
+  $( '.2nd, .3th' ).hide();
+	$( '.1st' ).focus();     
   $('input[type!="button"][type!="submit"], select, textarea')
          .val('')
 });
@@ -25,47 +22,17 @@ $('.menu-item').has('ul').addClass().html();
 		    if(code == 8 && !searchtext) { //backspace keycode			TODO: check if homepage // has to be fully empty
             //window.location.href = "index.html" //parent_page				
           }
-          //getting search value
-        
+        else{         
         if(searchtext) {
-          //finding If content matches with search keywordaads asdaasdsdasasdaaasd
           $matches = $('ul.top-bar-menu > .menu-item > a:Contains(' + searchtext + ')').first();
-          //$matches.addClass('test');
-          //hiding non matching lists
-          //$('li', list).not($matches).slideUp();
-          //showing matching lists
-		      //console.log($matches);
-          //$matches.slideDown();
-          if(code == 8) { //backspace keycode
-          //console.log('test');
-          }
-          else{
-
-          $pageA = $matches.parent();
-          $pageUrl = $($pageA).find('a').attr('href'); //url gotoPage
-          console.log($pageUrl);
-          $searchIndex = searchtext.length;
-          //console.log($searchIndex);
-
+          $searchIndex = searchtext.length;      
           if($matches.length == 1 && $searchIndex > "2"){
 	        $searchString_main = $matches[0].textContent.trim();
-          	//console.log($searchString_main);
-            //alert($searchString_main);
           	$('.1st').val( $searchString_main );
-            //$('.sub_cat').show();
-            //$('.sub').focus();aa
           }
           }
           if(searchtext == "help"){
-          	$('#category').find("li").slideDown(200);
           }
-          if(code == 13){
-            //gotoPage();		//goto page pas bij enter
-           }
-        }
-        else {
-          //if search keyword is empty then hide all the lists
-          $(list).find("li").slideUp(200);
         }
         return false;
       })
@@ -78,59 +45,43 @@ $('.menu-item').has('ul').addClass().html();
       if(code == 8 && !searchtext2) { //backspace keycode      TODO: check if homepage // has to be fully empty
           //window.location.href = "index.html" //parent_page       
         }
-        //getting search value
-      
+      else{  
       if(searchtext2) {
-        var currentUrl = window.location.href;
-        //var url = currentUrl.toString();
-        var lastSegment = currentUrl.split('/');
-        var lastEl = lastSegment[lastSegment.length-2];
-        //console.log( lastEl );
-        //finding If content matches with search keyword
-        //$matches = $('ul.top-bar-menu > .menu-item a:Contains(' + searchtext + ')');
-        
-        $mainCat = $('ul.top-bar-menu > .menu-item > a:Contains(' + lastEl + ')');
-        $mainCat2 = $( $mainCat.parent( 'li').children('ul').find('.menu-item > a:Contains(' + searchtext2 + ')'));
-        console.log( $mainCat.parent( 'li').children('ul').find('.menu-item > a:Contains(' + searchtext2 + ')'));
-        
-        //$mainCat2 = $('ul.top-bar-menu > .menu-item > a:Contains(' + lastEl + ')').first();
-        //console.log($mainCat2);
-        //console.log($($matches).parent().find('ul li a:Contains(' + searchtext2 +')'));
-        //$mainCat2.addClass('test');
-        //hiding non matching lists
-        //$('li', list).not($matches).slideUp();
-        //showing matching lists
-        //console.log($mainCat2);
-        //$matches.slideDown();
-        if(code == 8) { //backspace keycode
-        //console.log('test');
-        }
-        else{
-
-        
-        $pageUrl = $($mainCat2).attr('href'); //url gotoPage
-        $searchIndex2 = searchtext2.length;
-        //console.log($searchIndex2);
-        console.log($pageUrl);
-        if($mainCat2.length == 1 && $searchIndex2 > "2"){
-        $searchString_sub = $mainCat2[0].textContent.trim();
-        //  console.log($searchString_main);
-          
+        $mainCat = $('.1st').val();
+        $mainCat2 = $matches.parent('li').children('ul').find('.menu-item > a:Contains(' + searchtext2 + ')');
+          $searchIndex2 = searchtext2.length;
+          if($mainCat2.length == 1 && $searchIndex2 > "2"){
+          $searchString_sub = $mainCat2[0].textContent.trim();
           $('.2nd').val( $searchString_sub );
-          //$('.sub_cat').show();
-          //$('.sub').focus();
         }
         }
         if(searchtext2 == "help"){
-          $('#category').find("li").slideDown(200);
         }
-        if(code == 13){
-          gotoPage();   //goto page pas bij enter
-         }
       }
-      else {
-        //if search keyword is empty then hide all the lists
-        $(list).find("li").slideUp(200);
+      return false;
+    })
+
+
+      $(".3th")
+    .keyup( function (e) {
+      var code = e.keyCode || e.which;
+      var searchtext = $('.main').val();
+      var searchtext2 = $('.2nd').val();
+      var searchtext3 = $('.3th').val();
+      if(code == 8 && !searchtext3) { //backspace keycode      TODO: check if homepage // has to be fully empty
+          //window.location.href = "index.html" //parent_page       
+        }
+      else{  
+      if(searchtext3) {
+        $mainCat3 = $mainCat2.parent('li').children('ul').find('.menu-item > a:Contains(' + searchtext3 + ')');
+          $searchIndex3 = searchtext3.length;
+          if($mainCat3.length == 1 && $searchIndex3 > "2"){
+          $searchString_sub = $mainCat3[0].textContent.trim();
+          $('.3th').val( $searchString_sub );
+        }
+        }
+        if(searchtext3 == "help"){
+        }
       }
       return false;
     })
@@ -140,15 +91,66 @@ $('.menu-item').has('ul').addClass().html();
     });
   }
 
+
   $(function () {
     live_search($("#category"));
   });
   $(function () {
     live_search($("#sub_category"));
   });
+  $(function () {
+    live_search($("#dest_category"));
+  });
 }(jQuery));
 
- function gotoPage(){
-  window.location.href = $pageUrl;
- }
+function get_cat(){
+    var zoektekst1st = $('.1st').val();
+    $('#category-menu > li').find('.' + zoektekst1st ).trigger('click');
+    $( '.1st' ).attr('size',zoektekst1st.length + 2);
+    $( '.1st' ).val(zoektekst1st + ' x');
+    $( '.1st' ).attr('readonly','readonly');
+    $( '.2nd' ).show();
+    setTimeout(function() { 
+            $( '.2nd' ).focus(); 
+        }, 500);  
+}
+
+function get_cat_sub(){
+    var zoektekst2nd = $('.2nd').val();
+    $('#category-menu > li').find('.' + zoektekst2nd ).trigger('click');
+    $( '.2nd' ).attr('size',zoektekst2nd.length + 2);
+    $( '.2nd' ).val(zoektekst2nd + ' x');
+    $( '.2nd' ).attr('readonly','readonly');
+    $( '.3th' ).show();
+    setTimeout(function() { 
+        $( '.3th' ).focus(); 
+    }, 500);  
+}
+
+function get_cat_dest(){
+    var zoektekst3th = $('.3th').val();
+    $('#category-menu > li').find('.' + zoektekst3th ).trigger('click');
+    $( '.3th' ).attr('size',zoektekst3th.length + 2);
+    $( '.3th' ).val(zoektekst3th);
+    //$( '.3th' ).attr('readonly','readonly');
+}
+
+function cat_ajax_get(catID) {
+    jQuery("#loading-animation").show();
+    jQuery.ajax({
+        type: 'POST',
+        url: ajaxurl,
+        data: {"action": "load-filter", cat: catID },
+        success: function(response) {
+            //console.log(response);
+            jQuery("#category-post-content").html(response);
+            $('article a').contents().unwrap();
+            return false;
+        }
+    });
+}
+
+cat_ajax_get();
+
+$('article a').contents().unwrap();
 

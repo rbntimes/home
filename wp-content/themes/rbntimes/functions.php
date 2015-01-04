@@ -26,6 +26,8 @@ require_once('library/entry-meta.php');
 // Enqueue scripts
 require_once('library/enqueue-scripts.php');
 
+include('ajax.php');
+
 // Add theme support
 require_once('library/theme-support.php');
 

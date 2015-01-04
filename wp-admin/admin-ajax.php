@@ -13,6 +13,8 @@
  *
  * @since 2.1.0
  */
+
+
 define( 'DOING_AJAX', true );
 if ( ! defined( 'WP_ADMIN' ) ) {
 	define( 'WP_ADMIN', true );
@@ -64,64 +66,17 @@ $core_actions_post = array(
 	'parse-media-shortcode'
 );
 
-add_action( 'wp_ajax_nopriv_load-filter', 'prefix_load_cat_posts' );
-add_action( 'wp_ajax_load-filter', 'prefix_load_cat_posts' );
-function prefix_load_cat_posts () {
-    $cat_id = $_POST[ 'cat' ];
-         $args = array (
-        'cat' => $cat_id,
-        'posts_per_page' => 10,
-        'order' => 'DESC'
-
-    );
-
-    $posts = get_posts( $args );
-
-    ob_start ();
-    
-    foreach ( $posts as $post ) {
-    setup_postdata( $post ); ?>
-
-    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-  <header>
-       <div class="row">
-            <div class="small-3 columns">
-                 <div id="blckblck<?php echo rand(1,4)?>" class="blckblck" >
-                 	
-                 </div>
-                 <?php the_title( '<p>' , '<br />' ); ?>
-                 
-                      <?php the_category( ' > ', 'multiple' ); ?>
-                 </p>
-            </div>
-            <div id="cntntblck" class="entry-content small-9 columns">
-                 <?php the_content(__('Continue reading...', 'FoundationPress')); ?>
-            </div>
-       </div>
-  </header>
-  <footer>
-       <?php $tag = get_the_tags(); if (!$tag) { } else { ?><p><?php the_tags(); ?></p><?php } ?>
-  </footer>
-  <hr />
-</article>
-
-   <?php } wp_reset_postdata();
-
-   $response = ob_get_contents();
-   ob_end_clean();
-
-   echo $response;
-   die(1);
-   }
-
 // Register core Ajax calls.
 if ( ! empty( $_GET['action'] ) && in_array( $_GET['action'], $core_actions_get ) )
 	add_action( 'wp_ajax_' . $_GET['action'], 'wp_ajax_' . str_replace( '-', '_', $_GET['action'] ), 1 );
 
 if ( ! empty( $_POST['action'] ) && in_array( $_POST['action'], $core_actions_post ) )
 	add_action( 'wp_ajax_' . $_POST['action'], 'wp_ajax_' . str_replace( '-', '_', $_POST['action'] ), 1 );
+add_action( 'wp_ajax_nopriv_load-filter', 'prefix_load_cat_posts' );
 
+add_action( 'wp_ajax_load-filter', 'prefix_load_cat_posts' );
 add_action( 'wp_ajax_nopriv_heartbeat', 'wp_ajax_nopriv_heartbeat', 1 );
+
 
 if ( is_user_logged_in() ) {
 	/**
@@ -144,7 +99,10 @@ if ( is_user_logged_in() ) {
 	 */
 	do_action( 'wp_ajax_nopriv_' . $_REQUEST['action'] );
 }
+
+
 // Default status
 die( '0' );
+
 
 

@@ -1,9 +1,12 @@
+$(document).ready(function(){$('#prompt').foundation('reveal', 'open')});
 $( document ).ready(function() {
   $( '.2nd, .3th' ).hide();
 	$( '.1st' ).focus();     
   $('input[type!="button"][type!="submit"], select, textarea')
          .val('')
 });
+
+
 $test12 = $('.menu-item a').html();
 //console.log($('.menu-item > ul .menu-item a').html());
 $('.menu-item').has('ul').addClass().html();
@@ -19,20 +22,20 @@ $('.menu-item').has('ul').addClass().html();
       .keyup( function (e) {
         var code = e.keyCode || e.which;
 		    var searchtext = $(this).val();
-		    if(code == 8 && !searchtext) { //backspace keycode			TODO: check if homepage // has to be fully empty
-            //window.location.href = "index.html" //parent_page				
-          }
-        else{         
+		    if (code != 8){ 	
         if(searchtext) {
           $matches = $('ul.top-bar-menu > .menu-item > a:Contains(' + searchtext + ')').first();
           $searchIndex = searchtext.length;      
           if($matches.length == 1 && $searchIndex > "2"){
-	        $searchString_main = $matches[0].textContent.trim();
-          	$('.1st').val( $searchString_main );
+          $searchString_main = $matches[0].textContent.trim();
+            $('.1st').val( $searchString_main );
           }
           }
           if(searchtext == "help"){
+          }	
           }
+        else if(code == 8 && !searchtext){         
+          cat_ajax_get();
         }
         return false;
       })
@@ -42,10 +45,7 @@ $('.menu-item').has('ul').addClass().html();
       var code = e.keyCode || e.which;
       var searchtext = $('.main').val();
       var searchtext2 = $('.2nd').val();
-      if(code == 8 && !searchtext2) { //backspace keycode      TODO: check if homepage // has to be fully empty
-          //window.location.href = "index.html" //parent_page       
-        }
-      else{  
+      if (code != 8){    
       if(searchtext2) {
         $mainCat = $('.1st').val();
         $mainCat2 = $matches.parent('li').children('ul').find('.menu-item > a:Contains(' + searchtext2 + ')');
@@ -54,10 +54,17 @@ $('.menu-item').has('ul').addClass().html();
           $searchString_sub = $mainCat2[0].textContent.trim();
           $('.2nd').val( $searchString_sub );
         }
+          }
+          if(searchtext == "help"){
+          } 
+          }
+        else if(code == 8 && !searchtext2){         
+          $('.1st').removeAttr( "readonly" );
+          $('.1st').val( $searchString_main );
+          $('.2nd').hide();
+          $('#category-menu > li').find('.' + $searchString_main ).trigger('click');
+          $('.1st').focus();
         }
-        if(searchtext2 == "help"){
-        }
-      }
       return false;
     })
 
@@ -68,21 +75,25 @@ $('.menu-item').has('ul').addClass().html();
       var searchtext = $('.main').val();
       var searchtext2 = $('.2nd').val();
       var searchtext3 = $('.3th').val();
-      if(code == 8 && !searchtext3) { //backspace keycode      TODO: check if homepage // has to be fully empty
-          //window.location.href = "index.html" //parent_page       
-        }
-      else{  
+      if (code != 8){   
       if(searchtext3) {
         $mainCat3 = $mainCat2.parent('li').children('ul').find('.menu-item > a:Contains(' + searchtext3 + ')');
           $searchIndex3 = searchtext3.length;
           if($mainCat3.length == 1 && $searchIndex3 > "2"){
-          $searchString_sub = $mainCat3[0].textContent.trim();
-          $('.3th').val( $searchString_sub );
+          $searchString_dest = $mainCat3[0].textContent.trim();
+          $('.3th').val( $searchString_dest );
         }
+          }
+          if(searchtext == "help"){
+          } 
+          }
+        else if(code == 8 && !searchtext3){         
+          $('.2nd').removeAttr( "readonly" );
+          $('.2nd').val( $searchString_sub );
+          $('.3th').hide();
+          $('#category-menu > li').find('.' + $searchString_sub ).trigger('click');
+          $('.2nd').focus();
         }
-        if(searchtext3 == "help"){
-        }
-      }
       return false;
     })
 
@@ -112,7 +123,7 @@ function get_cat(){
     $( '.2nd' ).show();
     setTimeout(function() { 
             $( '.2nd' ).focus(); 
-        }, 500);  
+        }, 750);  
 }
 
 function get_cat_sub(){
@@ -124,7 +135,7 @@ function get_cat_sub(){
     $( '.3th' ).show();
     setTimeout(function() { 
         $( '.3th' ).focus(); 
-    }, 500);  
+    }, 750);  
 }
 
 function get_cat_dest(){
@@ -144,6 +155,9 @@ function cat_ajax_get(catID) {
         success: function(response) {
             //console.log(response);
             jQuery("#category-post-content").html(response);
+            $('iframe').each(function(){
+              isrc = $(this).attr('src');
+            });
             $('article a').contents().unwrap();
             return false;
         }

@@ -39,6 +39,18 @@
     <?php } ?>
 </ul>
 
+<div id="prompt" class="reveal-modal" data-reveal>
+  <h2>Hi</h2>
+  <p class="lead">Dit is alweer mijn 4de stage verslag.</p>
+  <p>Ik heb het deze keer iets anders aangepakt dan normaal. Naast mijn stageverslag is hier ook andere persoonlijke content te vinden,
+     een soort blog.
+    De bedoeling is dat dit in de toekomst nog voor vele functies wordt gebruikt.
+   In plaats van een traditioneel klik menu maakt ik gebrukt van een live filter. 
+   Dit houd in dat <b>jij</b> zelf moet zoeken naar wat je wilt zien.</p>
+  <p><b>TIP:</b> Komt je er niet uit, type dan eens 'help' ;)</p>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
 <script>
 var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
 </script>
